@@ -17,8 +17,8 @@ Fetches html table containing holiday data from website
 }
 \examples{
 year <- 2022
-fetch_html_element(year)
-
+html <- fetch_html_element(year)
+html
 
 
 }
