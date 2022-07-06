@@ -5,8 +5,8 @@
 #'             likely stem from data frame cells (E.g. holidays_2020_dates).
 #' @param year The year from which the dates are from.
 #'
-#' @return A vector containing individual dates. Note that while input date ranges
-#'         must be in dd.mm. format, the output uses yyyy-mm-dd.
+#' @return A string where all individual dates are concatenated. Note that
+#'         while input date ranges must be in dd.mm. format, the output uses yyyy-mm-dd.
 #' @import lubridate stringr
 #' @export
 #'
@@ -30,12 +30,12 @@
 #' case_9 <- holidays_2025_dates[24,5] # "09.06.+19.06.+05.07. - 17.08."
 #'
 #'
-#' # Resulting date vectors
+#' # Resulting date strings
 #'
 #' date_range_to_dates(case_1, 2020) # "-"
-#' date_range_to_dates(case_2, 2020) # "2020-02-21", "2020-02-22", ..., "2020-03-01"
-#' ...
-#' date_range_to_dates(case_9, 2020) # "2020-06-09", "2020-06-19", ..., "2020-08-17"
+#' date_range_to_dates(case_2, 2020) # "2020-02-21, 2020-02-22, ..., 2020-03-01"
+#' # ...
+#' date_range_to_dates(case_9, 2020) # "2020-06-09, 2020-06-19, ..., 2020-08-17"
 #'
 #'
 #'
@@ -113,13 +113,15 @@ date_range_to_dates <- function(cell, year){
     # Convert start_date to POSIXct
     d <- str_split(start_date, "\\.")
     d <- unlist(d) # Convert list to vector
-    start_date <- make_datetime(day=as.integer(d[1]), month=as.integer(d[2]), year=as.integer(d[3]))
+    start_date <- make_datetime(day=as.integer(d[1]), month=as.integer(d[2]), year=as.integer(d[3])) # start_date as type 'POSIXct'
+    start_date <- date(start_date) # start_date as type 'date'
 
 
     # Convert end_date to POSIXct
     d <- str_split(end_date, "\\.")
     d <- unlist(d) # Convert list to vector
-    end_date <- make_datetime(day=as.integer(d[1]), month=as.integer(d[2]), year=as.integer(d[3]))
+    end_date <- make_datetime(day=as.integer(d[1]), month=as.integer(d[2]), year=as.integer(d[3])) # end_date as type 'POSIXct'
+    end_date <- date(end_date) # end_date as type 'date'
 
 
     # Collect days from start_date to end_date in a vector
@@ -127,7 +129,7 @@ date_range_to_dates <- function(cell, year){
     repeat{
 
       # Add dates to vector
-      dates <- append(dates, temp)
+      dates <- append(dates, toString(temp)) # temp as string since it would be converted to milliseconds otherwise
       temp <- temp + days(1) # Add 1 day to date
 
       # Break loop when start_date (=temp) is larger than end_date
@@ -138,6 +140,7 @@ date_range_to_dates <- function(cell, year){
   }
 
   # Return all dates
-  return(dates)
+  # Convert to string since it is easier to write it into a single cell of a data frame that way
+  return(toString(dates))
 
 }

@@ -1,4 +1,10 @@
-## code to prepare `df_raw_20XX` dataset goes here
+## code to prepare `holidays_20XX_raw.rda` dataset goes here
+
+
+# Install package
+library(devtools)
+install() # Note that you have to be in the /R directory of the package to install it
+library(holidays)
 
 
 # Build datasets
@@ -27,7 +33,7 @@ html <- fetch_html_element(year)
 df_raw_2025 <- html_to_df(html)
 
 
-# Store raw datasets in R/sysdata.rda
+# Store raw datasets in /data-raw
 # This is the best place to put data that your functions need.
 # While not accessible to users.
 setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays/data-raw") # Set storage location

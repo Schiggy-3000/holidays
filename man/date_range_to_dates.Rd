@@ -14,8 +14,8 @@ likely stem from data frame cells (E.g. holidays_2020_dates).}
 \item{year}{The year from which the dates are from.}
 }
 \value{
-A vector containing individual dates. Note that while input date ranges
-must be in dd.mm. format, the output uses yyyy-mm-dd.
+A string where all individual dates are concatenated. Note that
+while input date ranges must be in dd.mm. format, the output uses yyyy-mm-dd.
 }
 \description{
 Converts date range to individual dates
@@ -40,12 +40,12 @@ case_8 <- holidays_2025_dates[6,5]  # "07.07."
 case_9 <- holidays_2025_dates[24,5] # "09.06.+19.06.+05.07. - 17.08."
 
 
-# Resulting date vectors
+# Resulting date strings
 
 date_range_to_dates(case_1, 2020) # "-"
-date_range_to_dates(case_2, 2020) # "2020-02-21", "2020-02-22", ..., "2020-03-01"
-...
-date_range_to_dates(case_9, 2020) # "2020-06-09", "2020-06-19", ..., "2020-08-17"
+date_range_to_dates(case_2, 2020) # "2020-02-21, 2020-02-22, ..., 2020-03-01"
+# ...
+date_range_to_dates(case_9, 2020) # "2020-06-09, 2020-06-19, ..., 2020-08-17"
 
 
 
