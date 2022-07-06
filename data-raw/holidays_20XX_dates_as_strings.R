@@ -1,4 +1,4 @@
-## code to prepare `holidays_2020_dates_as_strings` dataset goes here
+## code to prepare `holidays_20XX_dates_as_strings` dataset goes here
 
 
 # Setup
