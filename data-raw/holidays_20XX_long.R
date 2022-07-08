@@ -6,13 +6,13 @@ setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
 
 # Import other package
 # Adds 'PACKAGENAME' to Imports field in DESCRIPTION
-use_package("dplyr")
+#use_package("dplyr")
 
 
 # Install packages
 library(devtools)
 library(dplyr)
-install() # Note that you have to be in the /R directory of the package to install it
+#install() # Note that you have to be in the /R directory of the package to install it
 library(holidays)
 
 
@@ -20,8 +20,8 @@ library(holidays)
 load_all()
 document()
 rm(list=ls(all=TRUE))
-data("holidays_2020_dates")
-data("holidays_2025_dates")
+#data("holidays_2020_dates")
+#data("holidays_2025_dates")
 
 
 # Load preprocessed datasets
@@ -251,11 +251,11 @@ for (row in 1:n_rows) {
 
   if (weekday == 1 || weekday == 7) {
 
-    df.8[row, "Wochenende"] <- "1"
+    df.8[row, "Wochenende"] <- 1
 
   } else {
 
-    df.8[row, "Wochenende"] <- "0"
+    df.8[row, "Wochenende"] <- 0
 
     }
 }
@@ -265,13 +265,62 @@ for (row in 1:n_rows) {
 check.8 <- round(dim(df.8[df.8$Wochenend == 1,])[1] / dim(df.8[df.8$Wochenend == 0,])[1], digits=1)
 
 
+# Add 'Jahreszeit'
+df.8.1 <- df.8
+df.8.1["Jahreszeit"] <- NA
+
+n_rows <- dim(df.8.1)[1]
+n_cols <- dim(df.8.1)[2]
+
+for (row in 1:n_rows) {
+
+  day <- as_date(df.8.1[row,3])
+  a <- as_date(paste(year(day), "03", "20", sep="-"))
+  b <- as_date(paste(year(day), "06", "21", sep="-"))
+  c <- as_date(paste(year(day), "09", "22", sep="-"))
+  d <- as_date(paste(year(day), "12", "21", sep="-"))
+  e <- as_date(paste(year(day), "12", "31", sep="-"))
+
+
+  if (day < a) {
+
+    df.8.1[row, "Jahreszeit"] <- "Winter" # 1. Jan - 19. Mar
+
+  } else if (day < b) {
+
+    df.8.1[row, "Jahreszeit"] <- "Frühling" # 20. Mar - 20. Juni
+
+  } else if (day < c) {
+
+    df.8.1[row, "Jahreszeit"] <- "Sommer" # 21. Juni - 21. Sep
+
+  } else if (day < d) {
+
+    df.8.1[row, "Jahreszeit"] <- "Herbst" # 22. Sep - 20. Dez
+
+  } else if (day <= e){
+
+    df.8.1[row, "Jahreszeit"] <- "Winter" # 21. Dez - 31. Dez
+
+  } else {
+
+    print(NA) # In case the year does not match
+
+  }
+
+}
+
+
+# Check if there is any 'Jahreszeit' that has no season assigned to it
+check.9 <- df.8.1[is.na(df.8.1$Jahreszeit),]
+
+
 # Distribute date column
 # Before: '2020-01-01'
 # After: '01', 'Januar', '2020'
-df.9 <- df.8
+df.9 <- df.8.1
 
-names(df.9)[3] <- "Placeholder" # Rename column from 'Tag' to 'Placeholder'
-df.9["Datum"] <- NA
+names(df.9)[3] <- "Datum" # Rename column from 'Tag' to 'Datum'
 df.9["Tag"] <- NA
 df.9["Monat"] <- NA
 df.9["Jahr"] <- NA
@@ -285,7 +334,6 @@ for (row in 1:n_rows) {
   # This  yields 'Tag', 'Monat' und 'Jahr' seperately
   atoms <- str_split(df.9[row,3], "-")
 
-  df.9[row,"Datum"] <- paste(atoms[[1]][3], atoms[[1]][2], atoms[[1]][1], sep=".")
   df.9[row,"Tag"] <- atoms[[1]][3]
   df.9[row,"Monat"] <- atoms[[1]][2]
   df.9[row,"Jahr"] <- atoms[[1]][1]
@@ -299,6 +347,7 @@ col_order <- c("Kanton",
                "Tag",
                "Monat",
                "Jahr",
+               "Jahreszeit",
                "Ferientag",
                "Wochentag",
                "Wochenende")
@@ -350,19 +399,94 @@ for (row in 1:n_rows) {
 
 
 # Check if there is any 'Kanton' that has no 'Grossregion' assigned to it
-check.9 <- df.10[is.na(df.10$Grossregion),]
+check.10 <- df.10[is.na(df.10$Grossregion),]
+
+
+# Add 'Freier Tag' (= Ferientag + Wochenende)
+df.11 <- df.10
+df.11["Freier.Tag"] <- NA
+
+n_rows <- dim(df.11)[1]
+n_cols <- dim(df.11)[2]
+
+for (row in 1:n_rows) {
+
+  Ferientag <- df.11[row,"Ferientag"]
+  Wochenende <- df.11[row,"Wochenende"]
+
+  if (Ferientag == 1 || Wochenende == 1) {
+
+    df.11[row, "Freier.Tag"] <- 1
+
+  } else {
+
+    df.11[row, "Freier.Tag"] <- 0
+
+  }
+}
+
+
+# Check if there are rows with NA values
+check.11 <- dim(df.12[is.na(df.12),])[1] == 0
+
+
+# Reorder column
+col_order <- c("Kanton",
+               "Schule",
+               "Grossregion",
+               "Datum",
+               "Tag",
+               "Monat",
+               "Jahr",
+               "Jahreszeit",
+               "Wochentag",
+               "Ferientag",
+               "Wochenende",
+               "Freier.Tag")
+df.11 <- df.11[, col_order]
+
+
+# Convert columns to correct format
+df.12 <- df.11
+
+n_rows <- dim(df.12)[1]
+n_cols <- dim(df.12)[2]
+
+for (row in 1:n_rows) {
+
+  # Convert 'Datum' from string to date
+  date_iso <- as_date(df.12[,"Datum"])
+  df.12$`Datum` <- date_iso
+
+  # Convert 'Ferientag' from string to int
+  num <- as.numeric(df.12[,"Ferientag"])
+  df.12$Ferientag <- num
+
+  # Convert 'Wochenende' from string to int
+  num <- as.numeric(df.12[,"Wochenende"])
+  df.12$Wochenende <- num
+
+  # Convert 'Freier Tag' from string to int
+  num <- as.numeric(df.12[,"Freier.Tag"])
+  df.12$Freier.Tag <- num
+
+}
+
+
+# Inspect column formats
+str(df.12)
 
 
 # Store dataset
 # Adds 'R' to Depends field in DESCRIPTION
 # Saving dataset to 'data/...rda'
-holidays_2020_long <- df.10[df.10$Jahr == 2020,]
-holidays_2021_long <- df.10[df.10$Jahr == 2021,]
-holidays_2022_long <- df.10[df.10$Jahr == 2022,]
-holidays_2023_long <- df.10[df.10$Jahr == 2023,]
-holidays_2024_long <- df.10[df.10$Jahr == 2024,]
-holidays_2025_long <- df.10[df.10$Jahr == 2025,]
-holidays_2020_to_2025_long <- df.10
+holidays_2020_long <- df.12[df.12$Jahr == 2020,]
+holidays_2021_long <- df.12[df.12$Jahr == 2021,]
+holidays_2022_long <- df.12[df.12$Jahr == 2022,]
+holidays_2023_long <- df.12[df.12$Jahr == 2023,]
+holidays_2024_long <- df.12[df.12$Jahr == 2024,]
+holidays_2025_long <- df.12[df.12$Jahr == 2025,]
+holidays_2020_to_2025_long <- df.12
 
 setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
 usethis::use_data(holidays_2020_long,
@@ -376,6 +500,12 @@ usethis::use_data(holidays_2020_long,
 
 # Inspect data
 # Load it into global environment
+data("holidays_2020_long")
+data("holidays_2021_long")
+data("holidays_2022_long")
+data("holidays_2023_long")
+data("holidays_2024_long")
+data("holidays_2025_long")
 data("holidays_2020_to_2025_long")
 
 
