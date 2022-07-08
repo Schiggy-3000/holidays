@@ -1,5 +1,6 @@
 ## code to prepare `holidays_20XX_long` dataset goes here
 
+
 # Setup
 setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
 
