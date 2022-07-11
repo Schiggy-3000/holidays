@@ -2,6 +2,7 @@
 
 export(clean_df)
 export(date_range_to_dates)
+export(eda_holidays)
 export(fetch_html_element)
 export(html_to_df)
 import(lubridate)
