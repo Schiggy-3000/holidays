@@ -33,7 +33,6 @@ data("holidays_2020_dates")
 
 # Load preprocessed datasets
 # Note that the working directory must be set to /holidays
-#df <- load(holidays_2020_to_2025_long)
 df.0 <- data(holidays_2020_to_2025_long)
 df.0 <- get(df.0) # Fetch dataset
 
@@ -48,6 +47,10 @@ df.1 <- df.0 %>%
           summarise(Ferientag = sum(Ferientag),
                     Wochenende = sum(Wochenende),
                     Freier.Tag = sum(Freier.Tag))
+
+
+# Convert grouped_df to df
+df.1 <- as.data.frame(df.1)
 
 
 # Visual check
