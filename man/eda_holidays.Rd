@@ -4,7 +4,7 @@
 \alias{eda_holidays}
 \title{Exploratory data analysis (EDA) for holiday datasets}
 \usage{
-eda_holidays(data, years)
+eda_holidays(data)
 }
 \arguments{
 \item{data}{A dataset from this package. This includes holidays_20XX_long,
@@ -12,11 +12,6 @@ holidays_20XX_long_major_regions, holidays_20XX_long_switzerland,
 holidays_2020_to_2025_long, holidays_2020_to_2025_long_major_regions
 and holidays_2020_to_2025_long_switzerland. Not that XX is a
 placeholder for 20, 21, 22, 23, 24 or 25.}
-
-\item{years}{The years for which you want the EDA to be executed for.
-E.g. if you chose dataset holidays_2020_long, set years=2020.
-Similarly, if you chose holidays_2020_to_2025_long, you can
-set multiple years=c(2020,2021,2025).}
 }
 \value{
 An exploratory data analysis for the input dataset.
@@ -25,10 +20,9 @@ An exploratory data analysis for the input dataset.
 Exploratory data analysis (EDA) for holiday datasets
 }
 \examples{
-df <- data("holidays_2020_dates")
+df <- data("holidays_2020_long")
 df <- get(df)
-y <- c(2020, 2021, 2025)
-eda_holidays(data=df, years=y)
+eda_holidays(data=df)
 
 
 
