@@ -2,9 +2,12 @@
 
 export(clean_df)
 export(date_range_to_dates)
-export(eda_holidays)
 export(fetch_html_element)
+export(holidays_heat_map)
+export(holidays_time_series)
 export(html_to_df)
+import(crosstalk)
+import(ggplot2)
 import(lubridate)
 import(plotly)
 import(polite)
