@@ -1,25 +1,23 @@
-#' Heat map for holidays datasets
+#' Bar chart for holidays datasets
 #'
 #' @param data A dataset from this package. This includes holidays_20XX_long,
 #'             holidays_20XX_long_major_regions, holidays_20XX_long_switzerland,
 #'             holidays_2020_to_2025_long, holidays_2020_to_2025_long_major_regions
 #'             and holidays_2020_to_2025_long_switzerland. Not that XX is a
 #'             placeholder for 20, 21, 22, 23, 24 or 25.
-#'
-#' @return An interactive heat map for the dataset that was passed into the function.
-#'         The y-axis represents regions ('Kanton', 'Grossregion', or 'Land') whereas
-#'         'Datum' is plotted on the x-axis. The heat is represented by 'Ferientag'.
-#' @import plotly
+#' @return An interactive bar plot for the dataset that was passed into the function.
+#'         Each bar represents the number of holidays in a year for a given region.
+#' @importFrom ggplot2 ggplot geom_bar aes xlab ylab coord_flip theme_classic scale_fill_brewer
 #' @export
 #'
 #' @examples
-#' df <- data("holidays_2020_long")
+#' df <- data("holidays_2020_to_2025_long_major_regions")
 #' df <- get(df)
-#' holidays_heat_map(data=df)
+#' holidays_bar_chart(data=df)
 #'
 #'
 #'
-holidays_heat_map <- function(data) {
+holidays_bar_chart <- function(data) {
 
 
   # Setup for plot
@@ -50,30 +48,24 @@ holidays_heat_map <- function(data) {
   }
 
 
-  # Heat map
-  n <- length(unique(df.1$Primary.key))
-  heatmap <- plot_ly() %>%
-    add_trace(
-      type = "heatmap",
-      data = df.1,
-      x = ~Datum,
-      y = ~Primary.key,
-      z = ~Ferientag,
-      showscale = FALSE,
-      colors = c("slategray1", "steelblue3"),
-      hoverinfo = "text",
-      text = ~paste("Datum:",
-                    df.1$Datum,
-                    "<br>Ort:",
-                    df.1$Primary.key,
-                    "<br>Ferientag:",
-                    df.1$Ferientag)) %>%
-    layout(
-      xaxis = list(title=""),
-      yaxis = list(title="", tickvals=0:n))
+  # Aggregate data
+  df.2 <- df.1 %>%
+    group_by(Primary.key, Jahr) %>%
+    summarise(Ferientag = sum(Ferientag),
+              Wochenende = sum(Wochenende),
+              Freier.Tag = sum(Freier.Tag))
+
+  df.2 <- as.data.frame(df.2)
 
 
-  # Plot heat map
-  heatmap
+  gg <- ggplot(df.2, aes(fill=Jahr, y=Ferientag, x=Primary.key)) +
+    geom_bar(position="dodge", stat="identity") +
+    xlab("") +
+    ylab("") +
+    coord_flip() +
+    theme_classic() +
+    scale_fill_brewer(palette="PuBu")
+
+  ggplotly(gg)
 
 }

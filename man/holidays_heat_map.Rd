@@ -14,7 +14,9 @@ and holidays_2020_to_2025_long_switzerland. Not that XX is a
 placeholder for 20, 21, 22, 23, 24 or 25.}
 }
 \value{
-An interactive heat map plot for the dataset that was passed into the function.
+An interactive heat map for the dataset that was passed into the function.
+The y-axis represents regions ('Kanton', 'Grossregion', or 'Land') whereas
+'Datum' is plotted on the x-axis. The heat is represented by 'Ferientag'.
 }
 \description{
 Heat map for holidays datasets

@@ -7,7 +7,10 @@
 #'             placeholder for 20, 21, 22, 23, 24 or 25.
 #'
 #' @return An interactive time series plot for the dataset that was passed into the function.
-#' @import ggplot2 plotly crosstalk
+#'         Each region is represented by its own line and its value on the y-axis
+#'         is equal to the number of holidays in that region.
+#' @import plotly crosstalk
+#' @importFrom ggplot2 ggplot geom_line aes xlab ylab
 #' @export
 #'
 #' @examples
@@ -51,11 +54,17 @@ holidays_time_series <- function(data) {
   # Time series plot
   tx <- highlight_key(df.1, ~Primary.key, "Ort waehlen")
   gg <- ggplot(tx) +
-    geom_line(aes(df.1$Datum, df.1$Ferientag, group=df.1$Primary.key))
-  select <- highlight(
-    ggplotly(gg, tooltip="Kanton"),
-    selectize=TRUE,
-    persistent=TRUE)
+          geom_line(aes(df.1$Datum, df.1$Ferientag, group=df.1$Primary.key)) +
+          xlab("Datum") +
+          ylab("Ferientag")
+
+  suppressMessages( #  persistent=TRUE throws a message that is not relevant to the user
+    select <- highlight(
+      ggplotly(gg, tooltip="Kanton"),
+      selectize=TRUE,               # Creates a search box that allows to select 'Kanton'
+      persistent=TRUE,              # Clicking on multiple lines keeps them all selected
+      on = "plotly_click",          # A click on a line selects it
+      off = "plotly_doubleclick"))  # A doubleclick does not unselect a line
 
 
   # Plot time series
