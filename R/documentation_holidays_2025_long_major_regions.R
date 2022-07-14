@@ -12,9 +12,24 @@
 #'   \item{Jahr}{The year, e.g. 2020, 2021.}
 #'   \item{Jahreszeit}{Season of the year, e.g. Fruehling, Sommer.}
 #'   \item{Wochentag}{Day of the week, e.g. Montag, Dienstag.}
-#'   \item{Ferientag}{Value that captures how many major regions have a holiday on that date.}
-#'   \item{Wochenende}{Value that captures how many major regions have weekend on that date.}
-#'   \item{Freier.Tag}{Value that captures how many major regions have a day off on that date.}
+#'   \item{Ferientag}{Captures how many cantons from a given major region have a holiday on a particular date.
+#'                    E.g. the major region 'Genferseeregion' has 3 cantons (Genf, Waadt, Wallis). 'Ferientag'
+#'                    would therefore be a value from 0 - 3. Note, however, that Wallis counts twice since it
+#'                    reports holidays for two different school systems (Oberwallis, Romand).
+#'                    You can see how many school systems a canton has in holidays_20XX_dates (e.g. holidays_2020_dates).
+#'                    As a result, 'Ferientag' is a number from 0 - 4.}
+#'   \item{Wochenende}{Captures how many cantons from a given major region have weekend on a particular date.
+#'                    E.g. the major region 'Genferseeregion' has 3 cantons (Genf, Waadt, Wallis). 'Wochenende
+#'                    would therefore be a value from 0 - 3. Note, however, that Wallis counts twice since it
+#'                    reports holidays for two different school systems (Oberwallis, Romand).
+#'                    You can see how many school systems a canton has in holidays_20XX_dates (e.g. holidays_2020_dates).
+#'                    As a result, 'Wochenende' is a number from 0 - 4.}
+#'   \item{Freier.Tag}{Captures how many cantons from a given major region have a day off on a particular date.
+#'                    E.g. the major region 'Genferseeregion' has 3 cantons (Genf, Waadt, Wallis). 'Freier.Tag'
+#'                    would therefore be a value from 0 - 3. Note, however, that Wallis counts twice since it
+#'                    reports holidays for two different school systems (Oberwallis, Romand).
+#'                    You can see how many school systems a canton has in holidays_20XX_dates (e.g. holidays_2020_dates).
+#'                    As a result, 'Freier.Tag' is a number from 0 - 4.}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
 "holidays_2025_long_major_regions"

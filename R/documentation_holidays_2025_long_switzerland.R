@@ -12,9 +12,27 @@
 #'   \item{Jahr}{The year, e.g. 2020, 2021.}
 #'   \item{Jahreszeit}{Season of the year, e.g. Fruehling, Sommer.}
 #'   \item{Wochentag}{Day of the week, e.g. Montag, Dienstag.}
-#'   \item{Ferientag}{Value that captures how many cantons have a holiday on that date.}
-#'   \item{Wochenende}{Value that captures how many cantons have weekend on that date.}
-#'   \item{Freier.Tag}{Value that captures how many cantons have a day off on that date.}
+#'   \item{Ferientag}{Captures how many cantons have a holiday on a given date.
+#'                    This number can be higher than the number of cantons in Switzerland (26).
+#'                    This is due to the fact that certain cantons report holidays for
+#'                    multiple school systems. E.g. Wallis counts twice since it
+#'                    reports holidays for two different school systems (Oberwallis, Romand).
+#'                    You can see how many school systems a canton has in holidays_20XX_dates
+#'                    (e.g. holidays_2020_dates).}
+#'   \item{Wochenende}{Captures how many cantons have weekend on a given date.
+#'                    This number can be higher than the number of cantons in Switzerland (26).
+#'                    This is due to the fact that certain cantons report holidays for
+#'                    multiple school systems. E.g. Wallis counts twice since it
+#'                    reports holidays for two different school systems (Oberwallis, Romand).
+#'                    You can see how many school systems a canton has in holidays_20XX_dates
+#'                    (e.g. holidays_2020_dates).}
+#'   \item{Freier.Tag}{Captures how many cantons have a day off on a given date.
+#'                    This number can be higher than the number of cantons in Switzerland (26).
+#'                    This is due to the fact that certain cantons report holidays for
+#'                    multiple school systems. E.g. Wallis counts twice since it
+#'                    reports holidays for two different school systems (Oberwallis, Romand).
+#'                    You can see how many school systems a canton has in holidays_20XX_dates
+#'                    (e.g. holidays_2020_dates).}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
 "holidays_2025_long_switzerland"
