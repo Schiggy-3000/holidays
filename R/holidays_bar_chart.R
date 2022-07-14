@@ -8,6 +8,7 @@
 #' @return An interactive bar plot for the dataset that was passed into the function.
 #'         Each bar represents the number of holidays in a year for a given region.
 #' @importFrom ggplot2 ggplot geom_bar aes xlab ylab coord_flip theme_classic scale_fill_brewer
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
@@ -50,21 +51,22 @@ holidays_bar_chart <- function(data) {
 
   # Aggregate data
   df.2 <- df.1 %>%
-    group_by(Primary.key, Jahr) %>%
-    summarise(Ferientag = sum(Ferientag),
-              Wochenende = sum(Wochenende),
-              Freier.Tag = sum(Freier.Tag))
+    group_by(.data$Primary.key, .data$Jahr) %>% # .data is needed to avoid "no visible binding for global variable" note
+    summarise(Ferientag = sum(.data$Ferientag),
+              Wochenende = sum(.data$Wochenende),
+              Freier.Tag = sum(.data$Freier.Tag))
 
   df.2 <- as.data.frame(df.2)
 
 
-  gg <- ggplot(df.2, aes(fill=Jahr, y=Ferientag, x=Primary.key)) +
-    geom_bar(position="dodge", stat="identity") +
+  gg <- ggplot() +
+    geom_bar(aes(fill=df.2$Jahr, y=df.2$Ferientag, x=df.2$Primary.key),
+             position="dodge", stat="identity") +
     xlab("") +
-    ylab("") +
+    ylab("Ferientage") +
     coord_flip() +
     theme_classic() +
-    scale_fill_brewer(palette="PuBu")
+    scale_fill_brewer(palette="PuBu", name="") # Remove legend title
 
   ggplotly(gg)
 
