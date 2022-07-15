@@ -1,9 +1,8 @@
 ## code to prepare `holidays_20XX_dates` dataset goes here
 
 
-# Setup
-rm(list=ls(all=TRUE))	# Remove all objects
-setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
+# Set working directory
+#setwd("...")
 
 
 # Install package
@@ -47,7 +46,6 @@ holidays_2025_dates <- clean_df(df_raw_2025)
 # Store clean datasets
 # Adds 'R' to Depends field in DESCRIPTION
 # Saving df_clean_... to 'data/df_clean_....rda'
-setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
 usethis::use_data(holidays_2020_dates,
                   holidays_2021_dates,
                   holidays_2022_dates,

@@ -36,7 +36,7 @@ df_raw_2025 <- html_to_df(html)
 # Store raw datasets in /data-raw
 # This is the best place to put data that your functions need.
 # While not accessible to users.
-setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays/data-raw") # Set storage location
+#setwd("...") # Set storage location
 save(df_raw_2020, file="holidays_2020_raw.rda")
 save(df_raw_2021, file="holidays_2021_raw.rda")
 save(df_raw_2022, file="holidays_2022_raw.rda")

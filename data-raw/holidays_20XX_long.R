@@ -1,8 +1,8 @@
 ## code to prepare `holidays_20XX_long` dataset goes here
 
 
-# Setup
-setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
+# Set working directory
+#setwd("...")
 
 
 # Import other package
@@ -489,7 +489,6 @@ holidays_2024_long <- df.12[df.12$Jahr == 2024,]
 holidays_2025_long <- df.12[df.12$Jahr == 2025,]
 holidays_2020_to_2025_long <- df.12
 
-setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
 usethis::use_data(holidays_2020_long,
                   holidays_2021_long,
                   holidays_2022_long,

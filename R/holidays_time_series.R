@@ -7,8 +7,9 @@
 #'             placeholder for 20, 21, 22, 23, 24 or 25.
 #'
 #' @return An interactive time series plot for the dataset that was passed into the function.
-#'         Each region is represented by its own line and its value on the y-axis
-#'         is equal to the number of holidays in that region.
+#'         Each region (e.g. a 'Kanton', 'Grossregion' or 'Land') is represented by a plotted line.
+#'         The x-axis denotes dates whereas the number of holidays on a given date is shown on the y-axis.
+#'         You can use the filter function at the top of the plot to display only the regions of your choice.
 #' @import plotly crosstalk
 #' @importFrom ggplot2 ggplot geom_line aes xlab ylab
 #' @export

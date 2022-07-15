@@ -1,8 +1,8 @@
 ## code to prepare `holidays_20XX_dates_as_strings` dataset goes here
 
 
-# Setup
-setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays")
+# Set working directory
+#setwd("...")
 
 
 # Install packages
@@ -45,7 +45,7 @@ for (col in 3:n_cols) {
 
 
 # Store dataset
-setwd("C:/Users/Gabriel/Desktop/MScThesis/package/holidays/data-raw") # Set storage location
+setwd("./data-raw") # Set storage location
 holidays_2020_dates_as_strings <- df # YEAR
 file_name <- paste("holidays_", year, "_dates_as_strings.rda", sep="")
 save(holidays_2020_dates_as_strings, file=file_name) # YEAR
