@@ -1,0 +1,156 @@
+---
+title: "holidays - A Dataset Package for ML"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{vignette-holidays}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<p><a href="https://github.com/Schiggy-3000/holidays"><img src="super-cat-click.jpg" width="165px" height="150px" align="right"></a></p>
+
+The _holidays_ dataset package contains Swiss school holiday data from 1.–9. grade from 2020 until 2025, covering six years in total. The datasets are structured such that they seamlessly integrate with modeling in machine learning (ML). To further facilitate the handling of the data, the package provides functions for exploratory data analysis (EDA).
+
+
+<br />
+
+
+## Installing the package
+To use the package start by initiating the devtools package which in turn
+allows you to load _holidays_ from github.
+
+```{r install_holidays, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
+#install.packages("devtools")
+library(devtools)
+
+#install_github("Schiggy-3000/holidays")
+library(holidays)
+```
+
+
+<br />
+
+
+## Available datasets
+You find the list of available datasets down below. Note that XX is a placeholder for
+numbers from 20 through 25, completing the respective calendar year.
+
+- **holidays_20XX_dates** <br>
+<span style="color: grey;">School holidays at the scope of cantons as date ranges. This dataset type is not meant for ML but merely to get an overview of the holidays in a particular year.</span>
+- **holidays_20XX_long** <br>
+<span style="color: grey;">School holidays at the scope of cantons where every day occupies a separate row.</span>
+- **holidays_20XX_long_major_regions** <br>
+<span style="color: grey;">School holidays at the scope of major regions where every day occupies a separate row.</span>
+- **holidays_20XX_long_switzerland** <br>
+<span style="color: grey;">School holidays at the scope of Switzerland where every day occupies a separate row.</span>
+
+The datasets in long format from above are also available for six year periods.
+
+- **holidays_2020_to_2025_long**
+- **holidays_2020_to_2025_long_major_regions**
+- **holidays_2020_to_2025_long_switzerland**
+
+
+<br />
+
+
+## Loading datasets
+Using the data() command adds a given dataset to the global environment. For this, simply insert the name of a dataset from the list above into its brackets. If you prefer a more concise label, use get() and assign it to a variable of your choice.
+
+```{r load_datasets, include=TRUE, echo=TRUE}
+# Load datasets into the global environment
+data("holidays_2020_dates")
+data("holidays_2023_long")
+data("holidays_2020_to_2025_long_major_regions")
+
+# Load a dataset into the global environment and assign it a new name
+df <- get("holidays_2020_to_2025_long_major_regions")
+
+```
+
+
+<br />
+
+
+## Get to know the data - holidays_20XX_dates datasets
+Start by looking at _holidays_20XX_dates_ datasets. They show holidays per canton in an easy-to-read format.
+```{r examine_datasets, eval=FALSE}
+# Choose a holidays_20XX_dates datasets
+df.20 <- get("holidays_2020_dates")
+df.21 <- get("holidays_2021_dates")
+df.22 <- get("holidays_2022_dates")
+df.23 <- get("holidays_2023_dates")
+df.24 <- get("holidays_2024_dates")
+df.25 <- get("holidays_2025_dates")
+
+# Open table
+View(df.20)
+```
+
+
+<br />
+
+
+## Get to know the data - Dataset documentations
+Every dataset has its own documentation. Browse through it in case you need a concise description of its columns.
+
+```{r examine_datasets_doc, eval=FALSE}
+# Dataset documentations
+?holidays_2020_dates
+?holidays_2020_long
+?holidays_2020_long_major_regions
+?holidays_2020_long_switzerland
+?holidays_2020_long_major_regions
+?holidays_2020_to_2025_long
+?holidays_2020_to_2025_long_major_regions
+?holidays_2020_to_2025_long_switzerland
+```
+
+
+<br />
+
+
+## Get to know the data - EDA functions
+Familiarize yourself with the data in greater detail by using the built-in EDA functions.
+
+- **holidays_heat_map()** <br>
+<span style="color: grey;">Generates an interactive heat map.</span>
+- **holidays_time_series()** <br>
+<span style="color: grey;">Generates an interactive time series plot.</span>
+- **holidays_bar_chart()** <br>
+<span style="color: grey;">Generates an interactive bar plot.</span>
+- **holidays_describe()** <br>
+<span style="color: grey;">Generates an overview of all variables of the dataset.</span>
+
+```{r examine_datasets_1, include=TRUE, echo=TRUE, out.width="100%", fig.align="center"}
+# Choose a dataset in long format
+df <- get("holidays_2020_to_2025_long_major_regions")
+
+# Heat map
+holidays_heat_map(df)
+```
+
+```{r examine_datasets_2, include=TRUE, echo=TRUE, out.width="100%", fig.align="center"}
+# Time series
+holidays_time_series(df)
+```
+
+```{r examine_datasets_3, include=TRUE, echo=TRUE, out.width="100%", fig.align="center"}
+# Bar chart
+holidays_bar_chart(df)
+```
+
+```{r examine_datasets_4, include=TRUE, echo=TRUE, out.width="100%", fig.align="center"}
+# Column description
+holidays_describe(df)
+```
+
+
+
