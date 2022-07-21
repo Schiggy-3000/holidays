@@ -6,9 +6,13 @@
 #' @import polite rvest
 #'
 #' @examples
+#'
+#' \dontrun{
 #' year <- 2022
 #' html <- fetch_html_element(year)
 #' html
+#' }
+#'
 #'
 #'
 fetch_html_element <- function(year) {

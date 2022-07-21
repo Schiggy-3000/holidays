@@ -21,6 +21,8 @@ while input date ranges must be in dd.mm. format, the output uses yyyy-mm-dd.
 Converts date range to individual dates
 }
 \examples{
+
+\dontrun{
 # Load dataset
 
 data(holidays_2020_dates)
@@ -46,6 +48,7 @@ date_range_to_dates(case_1, 2020) # "-"
 date_range_to_dates(case_2, 2020) # "2020-02-21, 2020-02-22, ..., 2020-03-01"
 # ...
 date_range_to_dates(case_9, 2020) # "2020-06-09, 2020-06-19, ..., 2020-08-17"
+}
 
 
 

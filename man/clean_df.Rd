@@ -16,11 +16,14 @@ A clean data frame.
 Reformats raw data frame into a clean data frame
 }
 \examples{
+
+\dontrun{
 year <- 2022
 html <- fetch_html_element(year)
 df_raw <- html_to_df(html)
 df_clean <- clean_df(df_raw)
 df_clean
+}
 
 
 

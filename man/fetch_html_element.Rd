@@ -16,9 +16,13 @@ An html table element.
 Fetches html table containing holiday data from website
 }
 \examples{
+
+\dontrun{
 year <- 2022
 html <- fetch_html_element(year)
 html
+}
+
 
 
 }

@@ -10,6 +10,8 @@
 #' @import lubridate stringr
 #'
 #' @examples
+#'
+#' \dontrun{
 #' # Load dataset
 #'
 #' data(holidays_2020_dates)
@@ -35,6 +37,7 @@
 #' date_range_to_dates(case_2, 2020) # "2020-02-21, 2020-02-22, ..., 2020-03-01"
 #' # ...
 #' date_range_to_dates(case_9, 2020) # "2020-06-09, 2020-06-19, ..., 2020-08-17"
+#' }
 #'
 #'
 #'

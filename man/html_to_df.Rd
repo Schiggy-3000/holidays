@@ -16,10 +16,13 @@ A data frame.
 Converts html table element to df
 }
 \examples{
+
+\dontrun{
 year <- 2022
 html <- fetch_html_element(year)
 df <- html_to_df(html)
 df
+}
 
 
 
