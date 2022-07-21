@@ -4,7 +4,6 @@
 #'
 #' @return A clean data frame.
 #' @import stringr
-#' @export
 #'
 #' @examples
 #' year <- 2022

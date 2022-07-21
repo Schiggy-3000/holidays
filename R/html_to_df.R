@@ -4,7 +4,6 @@
 #'
 #' @return A data frame.
 #' @import rvest
-#' @export
 #'
 #' @examples
 #' year <- 2022

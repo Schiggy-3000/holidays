@@ -4,7 +4,6 @@
 #'
 #' @return An html table element.
 #' @import polite rvest
-#' @export
 #'
 #' @examples
 #' year <- 2022
