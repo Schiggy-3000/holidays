@@ -2,7 +2,7 @@
 title: "holidays - A Dataset Package for ML"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{vignette-holidays}
+  %\VignetteIndexEntry{holidays - A Dataset Package for ML}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,13 +24,14 @@ The _holidays_ dataset package contains Swiss school holiday data from 1.–9. g
 
 ## Installing the package
 To use the package start by initiating the devtools package which in turn
-allows you to load _holidays_ from github.
+allows you to load _holidays_ from github. The build_vignettes=TRUE parameter ensures
+that the package vignette is available after loading the package.
 
 ```{r install_holidays, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE}
 #install.packages("devtools")
 library(devtools)
 
-#install_github("Schiggy-3000/holidays")
+#install_github("Schiggy-3000/holidays", build_vignettes=TRUE)
 library(holidays)
 ```
 
