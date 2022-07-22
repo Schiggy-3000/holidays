@@ -1,9 +1,9 @@
-#' Swiss school holidays (2020)
+#' Swiss school holidays
 #'
-#' A dataset in long format containing school holidays (1.- 9. grade) from the year 2020
-#' aggregated to just one entity, Switzerland.
+#' Dataset in long format containing school holidays (1.- 9. grade) from the
+#' years 2020 - 2025 aggregated to just one entity, Switzerland.
 #'
-#' @format A data frame with 366 rows and 10 variables.
+#' @format Data frames with region, temporal, and holiday variables.
 #' \describe{
 #'   \item{Land}{Switzerland.}
 #'   \item{Datum}{Date in ISO 8601 format: YYYY-MM-DD.}
@@ -35,4 +35,21 @@
 #'                    (e.g. holidays_2020_dates).}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
+#' @rdname holidays_20XX_long_switzerland
 "holidays_2020_long_switzerland"
+
+#' @rdname holidays_20XX_long_switzerland
+"holidays_2021_long_switzerland"
+
+#' @rdname holidays_20XX_long_switzerland
+"holidays_2022_long_switzerland"
+
+#' @rdname holidays_20XX_long_switzerland
+"holidays_2023_long_switzerland"
+
+#' @rdname holidays_20XX_long_switzerland
+"holidays_2024_long_switzerland"
+
+#' @rdname holidays_20XX_long_switzerland
+"holidays_2025_long_switzerland"
+

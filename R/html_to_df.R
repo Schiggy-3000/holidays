@@ -1,21 +1,18 @@
-#' Converts html table element to df
-#'
-#' @param table The html table element you wish to convert.
-#'
-#' @return A data frame.
-#' @import rvest
-#'
-#' @examples
-#'
-#' \dontrun{
-#' year <- 2022
-#' html <- fetch_html_element(year)
-#' df <- html_to_df(html)
-#' df
-#' }
-#'
-#'
-#'
+# Converts html table element to df
+#
+# @param table The html table element you wish to convert.
+#
+# @return A data frame.
+# @import rvest
+#
+# @examples
+# year <- 2022
+# html <- fetch_html_element(year)
+# df <- html_to_df(html)
+# df
+#
+#
+#
 html_to_df <- function(table) {
 
   # Convert html table to df

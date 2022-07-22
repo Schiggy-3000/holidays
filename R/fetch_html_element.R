@@ -1,20 +1,17 @@
-#' Fetches html table containing holiday data from website
-#'
-#' @param year The year you want the data from.
-#'
-#' @return An html table element.
-#' @import polite rvest
-#'
-#' @examples
-#'
-#' \dontrun{
-#' year <- 2022
-#' html <- fetch_html_element(year)
-#' html
-#' }
-#'
-#'
-#'
+# Fetches html table containing holiday data from website
+#
+# @param year The year you want the data from.
+#
+# @return An html table element.
+# @import polite rvest
+#
+# @examples
+# year <- 2022
+# html <- fetch_html_element(year)
+# html
+#
+#
+#
 fetch_html_element <- function(year) {
 
   # Documentation of bow() function:

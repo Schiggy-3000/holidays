@@ -1,8 +1,9 @@
-#' Swiss school holidays (2022)
+#' Swiss school holidays
 #'
-#' A dataset in long format containing school holidays (1.- 9. grade) from the year 2022.
+#' Datasets in long format containing school holidays (1.- 9. grade) from the
+#' years 2020 - 2025.
 #'
-#' @format A data frame with 13140 rows and 12 variables.
+#' @format Data frames with region, temporal, and holiday variables.
 #' \describe{
 #'   \item{Kanton}{Swiss cantons, e.g. Aargau, Bern.}
 #'   \item{Schule}{The particular type of school, e.g. Alle Stufen, Gymnasium.}
@@ -18,4 +19,20 @@
 #'   \item{Freier.Tag}{Binary value that captures whether the day is a holiday and/or a day on the weekend. 0: Default, 1: Holiday/Weekend.}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
+#' @rdname holidays_20XX_long
+"holidays_2020_long"
+
+#' @rdname holidays_20XX_long
+"holidays_2021_long"
+
+#' @rdname holidays_20XX_long
 "holidays_2022_long"
+
+#' @rdname holidays_20XX_long
+"holidays_2023_long"
+
+#' @rdname holidays_20XX_long
+"holidays_2024_long"
+
+#' @rdname holidays_20XX_long
+"holidays_2025_long"

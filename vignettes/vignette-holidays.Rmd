@@ -104,11 +104,10 @@ Every dataset has its own documentation. Browse through it in case you need a co
 
 ```{r examine_datasets_doc, eval=FALSE}
 # Dataset documentations
-?holidays_2020_dates
-?holidays_2020_long
-?holidays_2020_long_major_regions
-?holidays_2020_long_switzerland
-?holidays_2020_long_major_regions
+?holidays_20XX_dates
+?holidays_20XX_long
+?holidays_20XX_long_major_regions
+?holidays_20XX_long_switzerland
 ?holidays_2020_to_2025_long
 ?holidays_2020_to_2025_long_major_regions
 ?holidays_2020_to_2025_long_switzerland

@@ -1,9 +1,10 @@
-#' Swiss school holidays (2022)
+#' Swiss school holidays
 #'
-#' A dataset in long format containing school holidays (1.- 9. grade) from the year 2022
-#' aggregated to major region in Switzerland (e.g. Zentralschweiz, Ostschweiz)
+#' Datasets in long format containing school holidays (1.- 9. grade) from the
+#' years 2020 - 2025 aggregated to major region in Switzerland
+#' (e.g. Zentralschweiz, Ostschweiz)
 #'
-#' @format A data frame with 2555 rows and 10 variables.
+#' @format Data frames with region, temporal, and holiday variables.
 #' \describe{
 #'   \item{Grossregion}{Major regions of Switzerland, e.g. Zentralschweiz, Ostschweiz.}
 #'   \item{Datum}{Date in ISO 8601 format: YYYY-MM-DD.}
@@ -32,4 +33,20 @@
 #'                    As a result, 'Freier.Tag' is a number from 0 - 4.}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
+#' @rdname holidays_20XX_long_major_regions
+"holidays_2020_long_major_regions"
+
+#' @rdname holidays_20XX_long_major_regions
+"holidays_2021_long_major_regions"
+
+#' @rdname holidays_20XX_long_major_regions
 "holidays_2022_long_major_regions"
+
+#' @rdname holidays_20XX_long_major_regions
+"holidays_2023_long_major_regions"
+
+#' @rdname holidays_20XX_long_major_regions
+"holidays_2024_long_major_regions"
+
+#' @rdname holidays_20XX_long_major_regions
+"holidays_2025_long_major_regions"
