@@ -8,6 +8,7 @@
 #'
 #' @return A console output that provides an overview of all variables of
 #'         the dataset and unique values they contain.
+#' @import lubridate
 #' @export
 #'
 #' @examples
