@@ -16,6 +16,9 @@
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
 
 #' @rdname holidays_20XX_dates
+"holidays_2019_dates"
+
+#' @rdname holidays_20XX_dates
 "holidays_2020_dates"
 
 #' @rdname holidays_20XX_dates

@@ -1,145 +1,237 @@
-## code to prepare `holidays_20XX_long` dataset goes here
-
 
 # Set working directory
 #setwd("...")
+rm(list=ls(all=TRUE))
+
 
 
 # Import other package
 # Adds 'PACKAGENAME' to Imports field in DESCRIPTION
 #use_package("dplyr")
+#use_package("lubridate")
+#use_package("tidyr")
+
 
 
 # Install packages
 library(devtools)
 library(dplyr)
+library(lubridate)
+library(tidyr)
 #install() # Note that you have to be in the /R directory of the package to install it
-library(holidays)
+#library(holidays)
 
-
-# Load holidays functions
-load_all()
-document()
-rm(list=ls(all=TRUE))
-#data("holidays_2020_dates")
-#data("holidays_2025_dates")
 
 
 # Load preprocessed datasets
 # Note that the working directory must be set to /holidays
-years <- c(2020, 2021, 2022, 2023, 2024, 2025)
-file_name <- "./data-raw/holidays_2020_dates_as_strings.rda" # Don't change this to another year. We use 2020 as blueprint.
-df <- load(file=file_name) # Store dataset name
-df <- get(df) # Fetch dataset
+df.2019 <- get(load("./data-raw/holidays_2019_dates_as_strings.rda"))
+df.2020 <- get(load("./data-raw/holidays_2020_dates_as_strings.rda"))
+df.2021 <- get(load("./data-raw/holidays_2021_dates_as_strings.rda"))
+df.2022 <- get(load("./data-raw/holidays_2022_dates_as_strings.rda"))
+df.2023 <- get(load("./data-raw/holidays_2023_dates_as_strings.rda"))
+df.2024 <- get(load("./data-raw/holidays_2024_dates_as_strings.rda"))
+df.2025 <- get(load("./data-raw/holidays_2025_dates_as_strings.rda"))
 
-# Setup new data frame
+
+#### Step 1 ####
+# Merge Xxxxxferien from all years into one column
+# New df to merge Xxxxxferien (Skeleton)
 df.1 <- data.frame()
-df.1 <- subset(df, select=c(1:2))
+df.1 <- subset(df.2020, select=c(1:2)) # Don't change this to another year. We use 2020 as blueprint.
+df.1["Sportferien"]       <- NA
+df.1["Fruehlingsfehrien"] <- NA
+df.1["Sommerferien"]      <- NA
+df.1["Herbstferien"]      <- NA
+df.1["Weihnachtsferien"]  <- NA
 
-for (n in 1:length(years)) {
+# New df to merge Xxxxxferien (Values)
+df.1.1 <- df.1
+n_rows <- dim(df.1.1)[1]
+n_cols <- dim(df.1.1)[2]
 
-  file_name <- paste("./data-raw/holidays_", years[n], "_dates_as_strings.rda", sep="")
-  df.0 <- load(file=file_name) # Store dataset name
-  df.0 <- get(df.0) # Fetch dataset
+for (col in 3:n_cols) {
 
-  n_rows <- dim(df.0)[1]
-  n_cols <- dim(df.0)[2]
-
-  df.1[toString(years[n])] <- NA
-
-  # Merge all 'Ferienxxx' columns into one column '20XX'
   for (row in 1:n_rows) {
 
-    # Find row (=index) in df.1 where we have to insert values later
-    Kanton <- df.0[row,1]
-    Schule <- df.0[row,2]
-    index <- which(df.1[,1] == Kanton & df.1[,2] == Schule)
+    # Collect dates from Xxxxxferien in string
+    date_string <- paste(df.2019[row, col],
+                         df.2020[row, col],
+                         df.2021[row, col],
+                         df.2022[row, col],
+                         df.2023[row, col],
+                         df.2024[row, col],
+                         df.2025[row, col],
+                         sep=", ")
 
-    date_string <- ""
+    # Replace NA with "-"
+    date_string <- str_replace_all(date_string, "NA", "-")
 
-    for (col in 3:n_cols) {
-
-      date_string <- paste(date_string, df.0[row,col], sep=", ")
-
-    }
-
-    # Remove leading ", "
-    date_string_new <- str_replace_all(date_string, "^, ", "")
-
-    # Write date_string to new df cell
-    df.1[index,toString(years[n])] <- date_string_new
+    # Insert dates into df
+    df.1.1[row, col] <- date_string
 
   }
 }
 
 
-# Replace NA with "-"
-df.1.1 <- df.1
-df.1.1[is.na(df.1.1)] <- "-"
+#### Check 1.X ####
+# Concatenate all dfs
+df.check <- rbind(df.2019,
+                  df.2020,
+                  df.2021,
+                  df.2022,
+                  df.2023,
+                  df.2024,
+                  df.2025)
+
+# Collect all Xxxxxferien dates in strings
+before_sportferien       <- toString(df.check[,3])
+before_fruehlingsferien  <- toString(df.check[,4])
+before_sommerferien      <- toString(df.check[,5])
+before_herbstferien      <- toString(df.check[,6])
+before_winterferien      <- toString(df.check[,7])
+
+after_sportferien       <- toString(df.1.1[,3])
+after_fruehlingsferien  <- toString(df.1.1[,4])
+after_sommerferien      <- toString(df.1.1[,5])
+after_herbstferien      <- toString(df.1.1[,6])
+after_winterferien      <- toString(df.1.1[,7])
+
+# Check if a given year occurs equally often
+year <- "2019"
+n_before <- length(str_match_all(before_sportferien, year)[[1]])
+n_after <- length(str_match_all(after_sportferien, year)[[1]])
+check.1.1 <- n_before == n_after
+
+n_before <- length(str_match_all(before_fruehlingsferien, year)[[1]])
+n_after <- length(str_match_all(after_fruehlingsferien, year)[[1]])
+check.1.2 <- n_before == n_after
+
+n_before <- length(str_match_all(before_sommerferien, year)[[1]])
+n_after <- length(str_match_all(after_sommerferien, year)[[1]])
+check.1.3 <- n_before == n_after
+
+n_before <- length(str_match_all(before_herbstferien, year)[[1]])
+n_after <- length(str_match_all(after_herbstferien, year)[[1]])
+check.1.4 <- n_before == n_after
+
+n_before <- length(str_match_all(before_winterferien, year)[[1]])
+n_after <- length(str_match_all(after_winterferien, year)[[1]])
+check.1.5 <- n_before == n_after
 
 
-# Setup new data frame
-df.2 <- subset(df.1.1, select=c(1:2))
-df.2["Tage"] <- NA
+
+#### Step 2 ####
+# Distribute dates to their own row
+# New df (Skeleton)
+df.2 <- data.frame(Kanton=character(),
+                   Schule=character(),
+                   Datum=character(),
+                   Ferientyp=character(),
+                   stringsAsFactors=FALSE)
 
 n_rows <- dim(df.1.1)[1]
 n_cols <- dim(df.1.1)[2]
 
-# Merge all '20XX' columns into one column 'Tage'
-for (row in 1:n_rows) {
+for (col in 3:n_cols) {
 
-  date_string <- ""
+  ferientyp <- colnames(df.1.1)[col]
 
-  for (col in 3:n_cols) {
+  for (row in 1:n_rows) {
 
-    date_string <- paste(date_string, df.1.1[row,col], sep=", ")
+    kanton <- df.1.1[row, 1]
+    schule <- df.1.1[row, 2]
+    dates <- str_split(df.1.1[row, col], ",")
 
-  }
+    for (d in 1:length(dates[[1]])) {
 
-  # Remove leading ", "
-  date_string_new <- str_replace_all(date_string, "^, ", "")
+      # Remove leading & trailing spaces from date
+      date <- trimws(dates[[1]][d], which=c("both"))
 
-  # Write date_string to new df cell
-  df.2[row,3] <- date_string_new
+      # Add row to df
+      df.2[nrow(df.2)+1,] <- c(kanton, schule, date, ferientyp)
 
-}
-
-
-# Create own row for each date in 'Tage' cell
-df.3 <- data.frame()
-for (row in 1:n_rows) {
-
-  Kanton <- df.2[row,1]
-  Schule <- df.2[row,2]
-  Datum <- str_split(df.2[row,3], ",")
-
-  for (d in 1:length(Datum[[1]])) {
-
-    Holiday <- Datum[[1]][d]
-    Holiday <- trimws(Holiday, which=c("both")) # Remove leading & trailing spaces
-
-    new_row <- data.frame(Kanton=Kanton,
-                          Schule=Schule,
-                          Tag=Holiday)
-
-    df.3 <- rbind(df.3, new_row)
-
+    }
   }
 }
 
 
+#### Check 2.X ####
+# Check if the no. of holidays in a given holiday (e.g. Sportferien) stayed the same
+
+# Concatenate holidays from 'Xxxxxferien' (e.g. Sportferien)
+ferien <- "Sportferien"
+n_rows <- dim(df.1.1)[1]
+n_cols <- dim(df.1.1)[2]
+tage <- ""
+
+for (row in 1:n_rows) {
+
+  tage <- paste(tage, df.1.1[row, ferien], sep=", ")
+
+}
+
+# Trim leading ', '
+first <- 2
+last <- nchar(tage)
+tage <- substr(tage, start=first, stop=last)
+
+# Count number of dates (in string) before
+tage_before <- length(str_split(tage, ", ")[[1]])
+
+# Count number of dates (rows) after
+tage_after <- nrow(df.2[df.2$Ferientyp == ferien,])
+
+# Check if the no. of holidays stayed the same
+check.2.1 <- tage_before == tage_after
+
+
+
+# Check if the no. of holidays in a given holiday (e.g. Sportferien)
+# for a 'Kanton' + 'Schule' stayed the same
+
+ferien <- "Sommerferien"
+kanton <- "Obwalden"
+schule <- "Volksschule"
+
+# Select row with 'Kanton' + 'Schule' combination
+df.check <- df.1.1[df.1.1$Kanton == kanton & df.1.1$Schule == schule,]
+tage <- df.check[1, ferien]
+
+# Count number of dates (in string) before
+tage_before <- length(str_split(tage, ", ")[[1]])
+
+# Count number of dates (rows) after
+tage_after <- nrow(df.2[df.2$Kanton == kanton & df.2$Schule == schule &df.2$Ferientyp == ferien,])
+
+# Check if the no. of holidays stayed the same
+check.2.2 <- tage_before == tage_after
+
+
+
+#### Step 3 ####
 # Drop "-" entries
-df.4 <- df.3[df.3$Tag != "-",]
-check.1 <- df.3[df.3$Tag == "-",] # Check how many "-" there are
-check.2 <- df.3[df.4$Tag == "-",] # Check whether all "-" were removed
+df.3 <- df.2[df.2$Datum != "-",]
 
 
-# Setup new data frame (Helper data frame)
+#### Check 3.X ####
+# Check if correct number of missing values were dropped
+rows_removed <- nrow(df.2[df.2$Datum == "-",])
+rows_before <- nrow(df.2)
+rows_after <- nrow(df.3)
+check.3.1 <- rows_after == rows_before - rows_removed
+
+
+
+#### Step 4 ####
+
+# Setup helper df
+# Add a column to all 'Kanton' + 'Schule' combination with all dates from 2019-01-01 ... 2025-12-31
 # Before: Aargau, Alle Schulen
 # After: Aargau, Alle Schulen, "2020-01-01, 2020-01-02, ..., 2020-12-31"
-df.5 <- subset(df.1, select=c(1:2))
+df.4 <- subset(df.1, select=c(1:2))
 dates <- vector(mode="character") # Initialize vector
-
+years <- c(2019, 2020, 2021, 2022, 2023, 2024, 2025)
 
 start_date <- paste(years[1], "-01-01", sep="") # Set start date of the year: 2020-01-01
 start_date <- date(start_date) # Convert to date
@@ -159,23 +251,33 @@ repeat{
   }
 }
 
-df.5["Tage"] <- toString(dates)
+df.4["Datum"] <- toString(dates)
 
 
-# Setup new data frame (Helper data frame)
-# Before: Aargau, Alle Schulen, "2020-01-01, 2020-01-02, ..., 2020-12-31"
-# After: Aargau, Alle Schulen, "2020-01-01"
-n_rows <- dim(df.5)[1]
-n_cols <- dim(df.5)[2]
+#### Check 4.X ####
+# Check if correct number of dates were added
 
-# Create own row for each date in "Tage" cell
-df.6 <- data.frame()
+days_added <- length(dates) # Number of dates that were added
+days_total <- as.integer(difftime(end_date, start_date, units="days")) # Calculates the number of dates between dates
+check.4.1 <- days_added == days_total
+
+
+
+#### Step 5 ####
+
+# Setup helper df
+# Distribute dates to their own row
+# Before: Aargau, Alle Schulen, "2019-01-01, 2020-01-02, ..., 2025-12-31"
+# After: Aargau, Alle Schulen, "2019-01-01"
+n_rows <- dim(df.4)[1]
+n_cols <- dim(df.4)[2]
+df.5 <- data.frame()
 
 for (row in 1:n_rows) {
 
-  Kanton <- df.5[row,1]
-  Schule <- df.5[row,2]
-  Datum <- str_split(df.5[row,3], ",")
+  Kanton <- df.4[row,1]
+  Schule <- df.4[row,2]
+  Datum <- str_split(df.4[row,3], ",")
 
   for (d in 1:length(Datum[[1]])) {
 
@@ -184,49 +286,72 @@ for (row in 1:n_rows) {
 
     new_row <- data.frame(Kanton=Kanton,
                           Schule=Schule,
-                          Tag=Tag)
+                          Datum=Tag)
 
-    df.6 <- rbind(df.6, new_row)
+    df.5 <- rbind(df.5, new_row)
 
   }
 }
 
-check.3 <- df.6[df.6$Kanton == "Aargau",] # Check how many days there are for "Aargau" (365 or 366 * number of years)
-check.4 <- df.6[df.6$Kanton == "Bern",] # Check how many days there are for "Aargau" (730 or 732 * number of years)
+
+#### Check 5.X ####
+# Check whether dates were distributed to their own cell correctly
+# by counting the number of rows
+rows_expected <- nrow(df.4) * days_total
+rows_actual <- nrow(df.5)
+check.5.1 <- rows_expected == rows_actual
 
 
-# Setup new data frame
-# We join df.4 and df.6
-# df.4: Kanton, Schule, Tag
-# df.6: Kanton, Schule, Tag
-# df.7: Kanton, Schule, Tag, Ferientag
-# The resulting data frame contains 4 columns whereas...
+
+#### Step 6 ####
+
+# Setup helper df
+# Join df.3 and df.5
+# df.3: Kanton, Schule, Datum, Ferientyp
+# df.5: Kanton, Schule, Datum
+# df.6: Kanton, Schule, Datum, Ferientyp, Ferientag
+
+# The resulting data frame contains 5 columns whereas...
 # ... the third column contains dates
-# ... the fourth column contains a '1' if the date is a school holiday
+# ... the fourth column contains the type of holidays (e.g. 'Sommerferien')
+# ... the fifth column contains a '1' if the date is a school holiday
 
-df.4.1 <- df.4
-df.4.1["Ferientag"] <- 1 # Add a new column filled with '1'
-df.7 <- merge(x=df.6, y=df.4.1, by=c("Kanton", "Schule", "Tag"), all.x=TRUE)
-df.7[is.na(df.7)] <- 0  # Replace NA with 0
+# Add a new column filled with '1'
+df.3.1 <- df.3
+df.3.1["Ferientag"] <- 1
+
+# Left outer join
+df.6 <- merge(x=df.5, y=df.3.1, by=c("Kanton", "Schule", "Datum"), all.x=TRUE)
+
+# Replace NA is column 'Ferientag' with 0 and with '-' in column 'Ferientyp'
+df.6 <- df.6 %>% replace_na(list(Ferientag=0, Ferientyp="-"))
 
 
-check.5 <- dim(df.6)[1] == dim(df.7)[1] # Since we left join the resulting df.7 can't be larger than df.6
+#### Check 6.X ####
 
-# df.7 must contain less rows with 'Ferientag' == 1 than df.4.1
-# This is given since df.4.1 contains school holidays from more than one year
-# (Weihnachtsferien cross over to the next year)
-# df.7 on the other hand disregards this carry over.
-check.6 <- dim(df.7[df.7$Ferientag == 1,])[1] < dim(df.4.1)[1]
+# Check whether all holiday were carried over properly
+# Number of holidays in 2026
+indexe <- with(df.3.1, grepl("2026", Datum)) # Find all rows that contain '2026' in 'Datum' column
+ferientage_2026 <- nrow(df.3.1[indexe,])
 
-# We can verify that rows from df.4.1 were not carried over
-# by examining the setdiff (check.7)
-df_temp <- df.7[df.7$Ferientag == 1,]
-check.7 <- df_only_4.1 <- setdiff(df.4.1, df_temp) # Only rows from year we did not include
+# Number of holidays before and after mutation
+ferientage_before <- nrow(df.3)
+ferientage_after <- nrow(df.6[df.6$Ferientag == 1,])
 
+# We don't carry days from 2026 over into our df
+# Therefore we have to account for them
+check.6.1 <- ferientage_before == ferientage_after + ferientage_2026
+
+# Since we left outer join, the number of rows has to still be the same
+check.6.2 <- nrow(df.6) == nrow(df.5)
+
+
+
+#### Step 7 ####
 
 # Add supplementary data
-# 'Wochentag', 'Wochenende'
-df.8 <- df.7
+# 'Wochentag', 'Wochenende', 'Jahreszeit'
+df.8 <- df.6
 df.8["Wochentag"] <- NA
 df.8["Wochenende"] <- NA
 
@@ -235,7 +360,7 @@ n_cols <- dim(df.8)[2]
 
 for (row in 1:n_rows) {
 
-  date <- df.8[row, "Tag"]
+  date <- df.8[row, "Datum"]
   weekday <- wday(date)
 
   day <- case_when(weekday == 1 ~ "Sonntag",
@@ -245,7 +370,7 @@ for (row in 1:n_rows) {
                    weekday == 5 ~ "Donnerstag",
                    weekday == 6 ~ "Freitag",
                    weekday == 7 ~ "Samstag"
-                   )
+  )
 
   df.8[row, "Wochentag"] <- day
 
@@ -258,12 +383,8 @@ for (row in 1:n_rows) {
 
     df.8[row, "Wochenende"] <- 0
 
-    }
+  }
 }
-
-
-# The ratio of weekends to weekday should be 2:5 which is 0.4
-check.8 <- round(dim(df.8[df.8$Wochenend == 1,])[1] / dim(df.8[df.8$Wochenend == 0,])[1], digits=1)
 
 
 # Add 'Jahreszeit'
@@ -275,7 +396,7 @@ n_cols <- dim(df.8.1)[2]
 
 for (row in 1:n_rows) {
 
-  day <- as_date(df.8.1[row,3])
+  day <- as_date(df.8.1[row, "Datum"])
   a <- as_date(paste(year(day), "03", "20", sep="-"))
   b <- as_date(paste(year(day), "06", "21", sep="-"))
   c <- as_date(paste(year(day), "09", "22", sep="-"))
@@ -312,19 +433,25 @@ for (row in 1:n_rows) {
 }
 
 
-# Check if there is any 'Jahreszeit' that has no season assigned to it
-check.9 <- df.8.1[is.na(df.8.1$Jahreszeit),]
+#### Check 7.X ####
 
+# The ratio of weekends to weekday should be 2:5 which is 0.4
+check.7.1 <- round(dim(df.8[df.8$Wochenend == 1,])[1] / dim(df.8[df.8$Wochenend == 0,])[1], digits=1) == 0.4
+
+# Check if there is any 'Jahreszeit' that has no season assigned to it
+check.7.2 <- nrow(df.8.1[is.na(df.8.1$Jahreszeit),]) == 0
+
+
+
+#### Step 8 ####
 
 # Distribute date column
 # Before: '2020-01-01'
-# After: '01', 'Januar', '2020'
+# After: '2020-01-01', '01', 'Januar', '2020'
 df.9 <- df.8.1
-
-names(df.9)[3] <- "Datum" # Rename column from 'Tag' to 'Datum'
-df.9["Tag"] <- NA
+df.9["Tag"]   <- NA
 df.9["Monat"] <- NA
-df.9["Jahr"] <- NA
+df.9["Jahr"]  <- NA
 
 n_rows <- dim(df.9)[1]
 n_cols <- dim(df.9)[2]
@@ -350,13 +477,22 @@ col_order <- c("Kanton",
                "Jahr",
                "Jahreszeit",
                "Ferientag",
+               "Ferientyp",
                "Wochentag",
                "Wochenende")
-df.9 <- df.9[, col_order]
+df.9.1 <- df.9[, col_order]
 
+
+#### Check 8.X ####
+
+# No checks here
+
+
+
+#### Step 9 ####
 
 # Add major regions (e.g. Zentralschweiz, Ostschweiz, ...)
-df.10 <- df.9
+df.10 <- df.9.1
 df.10["Grossregion"] <- NA
 
 n_rows <- dim(df.10)[1]
@@ -398,39 +534,6 @@ for (row in 1:n_rows) {
 
 }
 
-
-# Check if there is any 'Kanton' that has no 'Grossregion' assigned to it
-check.10 <- df.10[is.na(df.10$Grossregion),]
-
-
-# Add 'Freier Tag' (= Ferientag + Wochenende)
-df.11 <- df.10
-df.11["Freier.Tag"] <- NA
-
-n_rows <- dim(df.11)[1]
-n_cols <- dim(df.11)[2]
-
-for (row in 1:n_rows) {
-
-  Ferientag <- df.11[row,"Ferientag"]
-  Wochenende <- df.11[row,"Wochenende"]
-
-  if (Ferientag == 1 || Wochenende == 1) {
-
-    df.11[row, "Freier.Tag"] <- 1
-
-  } else {
-
-    df.11[row, "Freier.Tag"] <- 0
-
-  }
-}
-
-
-# Check if there are rows with NA values
-check.11 <- dim(df.12[is.na(df.12),])[1] == 0
-
-
 # Reorder column
 col_order <- c("Kanton",
                "Schule",
@@ -440,15 +543,24 @@ col_order <- c("Kanton",
                "Monat",
                "Jahr",
                "Jahreszeit",
-               "Wochentag",
                "Ferientag",
-               "Wochenende",
-               "Freier.Tag")
-df.11 <- df.11[, col_order]
+               "Ferientyp",
+               "Wochentag",
+               "Wochenende")
+df.10.1 <- df.10[, col_order]
 
+
+#### Check 9.X ####
+
+# Check if there is any 'Kanton' that has no 'Grossregion' assigned to it
+check.9 <- nrow(df.10.1[is.na(df.10.1$Grossregion),]) == 0
+
+
+
+#### Step 10 ####
 
 # Convert columns to correct format
-df.12 <- df.11
+df.12 <- df.10.1
 
 n_rows <- dim(df.12)[1]
 n_cols <- dim(df.12)[2]
@@ -467,18 +579,17 @@ for (row in 1:n_rows) {
   num <- as.numeric(df.12[,"Wochenende"])
   df.12$Wochenende <- num
 
-  # Convert 'Freier Tag' from string to int
-  num <- as.numeric(df.12[,"Freier.Tag"])
-  df.12$Freier.Tag <- num
-
 }
 
+
+#### Check 10.X ####
 
 # Inspect column formats
 str(df.12)
 
 
-# Store dataset
+
+#### Store dataset ####
 # Adds 'R' to Depends field in DESCRIPTION
 # Saving dataset to 'data/...rda'
 holidays_2020_long <- df.12[df.12$Jahr == 2020,]
