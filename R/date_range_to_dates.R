@@ -7,7 +7,7 @@
 #
 # @return A string where all individual dates are concatenated. Note that
 #         while input date ranges must be in dd.mm. format, the output uses yyyy-mm-dd.
-# @import lubridate stringr
+#' @import lubridate stringr
 #
 # @examples
 # # Load dataset

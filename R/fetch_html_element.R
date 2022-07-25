@@ -3,7 +3,7 @@
 # @param year The year you want the data from.
 #
 # @return An html table element.
-# @import polite rvest
+#' @import polite rvest
 #
 # @examples
 # year <- 2022

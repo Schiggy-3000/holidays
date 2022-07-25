@@ -3,7 +3,7 @@
 # @param table The html table element you wish to convert.
 #
 # @return A data frame.
-# @import rvest
+#' @import rvest
 #
 # @examples
 # year <- 2022

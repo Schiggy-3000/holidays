@@ -3,7 +3,7 @@
 # @param df A raw data frame.
 #
 # @return A clean data frame.
-# @import stringr
+#' @import stringr
 #
 # @examples
 # year <- 2022
