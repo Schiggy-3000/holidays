@@ -1,9 +1,9 @@
-#' Swiss school holidays (2020 - 2025)
+#' Dataset - Swiss school holidays for ML (Scope: major regions, 2020 - 2025)
 #'
 #' A dataset in long format containing school holidays (1.- 9. grade) from the years
 #' 2020 - 2025 aggregated to major region in Switzerland (e.g. Zentralschweiz, Ostschweiz)
 #'
-#' @format A data frame with 15344 rows and 10 variables.
+#' @format A data frame with region, temporal, and holiday variables.
 #' \describe{
 #'   \item{Grossregion}{Major regions of Switzerland, e.g. Zentralschweiz, Ostschweiz.}
 #'   \item{Datum}{Date in ISO 8601 format: YYYY-MM-DD.}
@@ -24,12 +24,7 @@
 #'                    reports holidays for two different school systems (Oberwallis, Romand).
 #'                    You can see how many school systems a canton has in holidays_20XX_dates (e.g. holidays_2020_dates).
 #'                    As a result, 'Wochenende' is a number from 0 - 4.}
-#'   \item{Freier.Tag}{Captures how many cantons from a given major region have a day off on a particular date.
-#'                    E.g. the major region 'Genferseeregion' has 3 cantons (Genf, Waadt, Wallis). 'Freier.Tag'
-#'                    would therefore be a value from 0 - 3. Note, however, that Wallis counts twice since it
-#'                    reports holidays for two different school systems (Oberwallis, Romand).
-#'                    You can see how many school systems a canton has in holidays_20XX_dates (e.g. holidays_2020_dates).
-#'                    As a result, 'Freier.Tag' is a number from 0 - 4.}
+#'   \item{Ferientyp}{Indicates the type of holidays if it is a holiday, e.g. Sommerferien, Herbstferien.}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
 "holidays_2020_to_2025_long_major_regions"

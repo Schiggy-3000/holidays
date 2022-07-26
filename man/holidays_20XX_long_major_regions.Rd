@@ -9,7 +9,7 @@
 \alias{holidays_2023_long_major_regions}
 \alias{holidays_2024_long_major_regions}
 \alias{holidays_2025_long_major_regions}
-\title{Swiss school holidays}
+\title{Dataset - Swiss school holidays for ML (Scope: major regions)}
 \format{
 Data frames with region, temporal, and holiday variables.
 \describe{
@@ -32,12 +32,7 @@ would therefore be a value from 0 - 3. Note, however, that Wallis counts twice s
 reports holidays for two different school systems (Oberwallis, Romand).
 You can see how many school systems a canton has in holidays_20XX_dates (e.g. holidays_2020_dates).
 As a result, 'Wochenende' is a number from 0 - 4.}
-\item{Freier.Tag}{Captures how many cantons from a given major region have a day off on a particular date.
-E.g. the major region 'Genferseeregion' has 3 cantons (Genf, Waadt, Wallis). 'Freier.Tag'
-would therefore be a value from 0 - 3. Note, however, that Wallis counts twice since it
-reports holidays for two different school systems (Oberwallis, Romand).
-You can see how many school systems a canton has in holidays_20XX_dates (e.g. holidays_2020_dates).
-As a result, 'Freier.Tag' is a number from 0 - 4.}
+\item{Ferientyp}{Indicates the type of holidays if it is a holiday, e.g. Sommerferien, Herbstferien.}
 }
 
 An object of class \code{data.frame} with 2555 rows and 10 columns.

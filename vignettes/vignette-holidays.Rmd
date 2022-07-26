@@ -84,6 +84,7 @@ df <- get("holidays_2020_to_2025_long_major_regions")
 Start by looking at _holidays_20XX_dates_ datasets. They show holidays per canton in an easy-to-read format.
 ```{r examine_datasets, eval=FALSE}
 # Choose a holidays_20XX_dates datasets
+df.19 <- get("holidays_2019_dates")
 df.20 <- get("holidays_2020_dates")
 df.21 <- get("holidays_2021_dates")
 df.22 <- get("holidays_2022_dates")
@@ -92,7 +93,7 @@ df.24 <- get("holidays_2024_dates")
 df.25 <- get("holidays_2025_dates")
 
 # Open table
-View(df.20)
+View(df.19)
 ```
 
 

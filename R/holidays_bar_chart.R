@@ -52,9 +52,8 @@ holidays_bar_chart <- function(data) {
   # Aggregate data
   df.2 <- df.1 %>%
     group_by(.data$Primary.key, .data$Jahr) %>% # .data is needed to avoid "no visible binding for global variable" note
-    summarise(Ferientag = sum(.data$Ferientag),
-              Wochenende = sum(.data$Wochenende),
-              Freier.Tag = sum(.data$Freier.Tag))
+    summarise(Ferientag=sum(.data$Ferientag),
+              Wochenende=sum(.data$Wochenende))
 
   df.2 <- as.data.frame(df.2)
 

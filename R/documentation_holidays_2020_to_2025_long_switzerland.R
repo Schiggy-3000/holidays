@@ -1,9 +1,9 @@
-#' Swiss school holidays (2020 - 2025)
+#' Dataset - Swiss school holidays for ML (Scope: country, 2020 - 2025)
 #'
 #' A dataset in long format containing school holidays (1.- 9. grade) from the years
 #' 2020 - 2025 aggregated to just one entity, Switzerland.
 #'
-#' @format A data frame with 2192 rows and 10 variables.
+#' @format A data frame with region, temporal, and holiday variables.
 #' \describe{
 #'   \item{Land}{Switzerland.}
 #'   \item{Datum}{Date in ISO 8601 format: YYYY-MM-DD.}
@@ -26,13 +26,7 @@
 #'                    reports holidays for two different school systems (Oberwallis, Romand).
 #'                    You can see how many school systems a canton has in holidays_20XX_dates
 #'                    (e.g. holidays_2020_dates).}
-#'   \item{Freier.Tag}{Captures how many cantons have a day off on a given date.
-#'                    This number can be higher than the number of cantons in Switzerland (26).
-#'                    This is due to the fact that certain cantons report holidays for
-#'                    multiple school systems. E.g. Wallis counts twice since it
-#'                    reports holidays for two different school systems (Oberwallis, Romand).
-#'                    You can see how many school systems a canton has in holidays_20XX_dates
-#'                    (e.g. holidays_2020_dates).}
+#'   \item{Ferientyp}{Indicates the type of holidays if it is a holiday, e.g. Sommerferien, Herbstferien.}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
 "holidays_2020_to_2025_long_switzerland"

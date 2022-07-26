@@ -1,4 +1,4 @@
-#' Swiss school holidays
+#' Dataset - Swiss school holidays for ML (Scope: cantons)
 #'
 #' Datasets in long format containing school holidays (1.- 9. grade) from the
 #' years 2020 - 2025.
@@ -13,12 +13,13 @@
 #'   \item{Monat}{Month of the year. A value in the range of 01 - 12.}
 #'   \item{Jahr}{The year, e.g. 2020, 2021.}
 #'   \item{Jahreszeit}{Season of the year, e.g. Fruehling, Sommer.}
-#'   \item{Wochentag}{Day of the week, e.g. Montag, Dienstag.}
 #'   \item{Ferientag}{Binary value that captures whether the day is a holiday or not. 0: No holiday, 1: Holiday.}
+#'   \item{Ferientyp}{Indicates the type of holidays if it is a holiday, e.g. Sommerferien, Herbstferien.}
+#'   \item{Wochentag}{Day of the week, e.g. Montag, Dienstag.}
 #'   \item{Wochenende}{Binary value that captures whether the day is a day on the weekend. 0: Mo - Fr, 1: Sa - Su.}
-#'   \item{Freier.Tag}{Binary value that captures whether the day is a holiday and/or a day on the weekend. 0: Default, 1: Holiday/Weekend.}
 #' }
 #' @source \url{https://www.schulferien.org/schweiz/ferien/}
+
 #' @rdname holidays_20XX_long
 "holidays_2020_long"
 

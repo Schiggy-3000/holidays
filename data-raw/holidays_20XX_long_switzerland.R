@@ -1,5 +1,3 @@
-## code to prepare `holidays_20XX_long_switzerland` dataset goes here
-
 
 # Set working directory
 #setwd("...")
@@ -15,7 +13,7 @@
 library(devtools)
 library(dplyr)
 library(ggplot2)
-#install() # Note that you have to be in the /R directory of the package to install it
+library(lubridate)
 library(holidays)
 
 
@@ -53,10 +51,10 @@ col_order <- c("Land",
                "Monat",
                "Jahr",
                "Jahreszeit",
-               "Wochentag",
                "Ferientag",
-               "Wochenende",
-               "Freier.Tag")
+               "Ferientyp",
+               "Wochentag",
+               "Wochenende")
 df.1 <- df.1[, col_order]
 
 
@@ -65,20 +63,53 @@ df.2 <- df.1 %>%
   group_by(Land, Datum, Tag, Monat, Jahr, Jahreszeit, Wochentag) %>%
   summarise(Ferientag = sum(Ferientag),
             Wochenende = sum(Wochenende),
-            Freier.Tag = sum(Freier.Tag))
+            Ferientyp = max(Ferientyp)) # max("-", "Sommerferien") yields "Sommerferien"
 
 
 # Convert grouped_df to df
 df.2 <- as.data.frame(df.2)
 
 
-# Visual check
-df.plot <- df.2
+# Checks after mutation
 
-plot <- ggplot(df.plot, aes(x=Datum, y=Freier.Tag)) +
+# Check for duplicates
+# For this, compare number of unique rows to total number of rows
+check.1 <- nrow(unique(df.2)) == nrow(df.2)
+
+# Check if there are NAs
+check.2 <- nrow(df.2[is.na(df.2),]) == 0
+
+# Check if there is 1 Land
+check.3 <- length(levels(as.factor(df.2$Land))) == 1
+
+# Check if the number of rows is correct
+# Every date from 2019-01-01 ... 2026-01-01 should come up exactly once
+start_date <- date("2019-01-01") # Convert to date
+end_date <- date("2026-01-01") # Convert to date
+days_total <- as.integer(difftime(end_date, start_date, units="days")) # Calculates the number of dates between dates
+check.4 <- nrow(df.2) == days_total
+
+# Check if only 0 or 36 come up in 'Wochenende'
+wochenend_values_ist <- unique(df.2$Wochenende)
+wochenend_values_soll <- c(0, 36)
+check.5 <- identical(wochenend_values_ist, wochenend_values_soll)
+
+
+# Visual check
+
+# Plot different Jahr/Monat combinations to check the data
+df.plot <- df.2[df.2$Jahr == 2020 & df.1$Monat == "01",]
+plot <- ggplot(df.plot, aes(x=Datum, y=Wochenende)) +
   geom_line() +
+  scale_x_date(date_breaks = "days") +
+  scale_y_continuous(breaks=c(6, 16, 26, 36, 46)) +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, hjust=1)) +
   xlab("")
 plot
+
+
+# Check variable types
+str(df.2)
 
 
 # Store dataset

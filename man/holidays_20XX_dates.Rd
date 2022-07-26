@@ -9,7 +9,7 @@
 \alias{holidays_2023_dates}
 \alias{holidays_2024_dates}
 \alias{holidays_2025_dates}
-\title{Swiss school holidays}
+\title{Dataset - Swiss school holidays overview}
 \format{
 Data frames with region and different types of holiday variables.
 \describe{
@@ -54,6 +54,6 @@ holidays_2025_dates
 }
 \description{
 Datasets containing school holidays (1.- 9. grade) as date ranges from the
-years 2020 - 2025.
+years 2019 - 2025.
 }
 \keyword{datasets}
