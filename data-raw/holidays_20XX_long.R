@@ -40,7 +40,7 @@ df.2025 <- get(load("./data-raw/holidays_2025_dates_as_strings.rda"))
 df.1 <- data.frame()
 df.1 <- subset(df.2020, select=c(1:2)) # Don't change this to another year. We use 2020 as blueprint.
 df.1["Sportferien"]       <- NA
-df.1["Fruehlingsfehrien"] <- NA
+df.1["Fruehlingsferien"]  <- NA
 df.1["Sommerferien"]      <- NA
 df.1["Herbstferien"]      <- NA
 df.1["Weihnachtsferien"]  <- NA

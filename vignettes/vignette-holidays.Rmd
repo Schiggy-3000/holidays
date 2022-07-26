@@ -135,22 +135,22 @@ Familiarize yourself with the data in greater detail by using the built-in EDA f
 df <- get("holidays_2020_to_2025_long_major_regions")
 
 # Heat map
-holidays_heat_map(df)
+#holidays_heat_map(df)
 ```
 
 ```{r examine_datasets_2, include=TRUE, echo=TRUE, out.width="100%", fig.align="center"}
 # Time series
-holidays_time_series(df)
+#holidays_time_series(df)
 ```
 
 ```{r examine_datasets_3, include=TRUE, echo=TRUE, out.width="100%", fig.align="center"}
 # Bar chart
-holidays_bar_chart(df)
+#holidays_bar_chart(df)
 ```
 
 ```{r examine_datasets_4, include=TRUE, echo=TRUE, out.width="100%", fig.align="center"}
 # Column description
-holidays_describe(df)
+#holidays_describe(df)
 ```
 
 
