@@ -221,7 +221,7 @@ holidays_heat_map <- function(data, normalize=FALSE, holidaytype=c("Sportferien"
                     df.plot$Datum,
                     "<br>Ort:",
                     df.plot$Primary.key,
-                    "<br>Ferientag:",
+                    "<br>Ferientage:",
                     df.plot$Ferientag)) %>%
     layout(
       xaxis = list(title=""),

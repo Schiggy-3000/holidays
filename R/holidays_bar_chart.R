@@ -229,7 +229,7 @@ holidays_bar_chart <- function(data, normalize=FALSE, holidaytype=c("Sportferien
                   df.plot$Jahr,
                   "<br>Ort:",
                   df.plot$Primary.key,
-                  "<br>Ferientag:",
+                  "<br>Ferientage:",
                   df.plot$Ferientag)) %>%
     layout(
       showlegend=TRUE,
