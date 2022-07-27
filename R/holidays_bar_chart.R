@@ -11,6 +11,7 @@
 #'                  Genferseeregion: 4). Normalizing the data can make the bar chart more meaningful.
 #' @param holidaytype The type of holidays you want the plot for. Possible values are:
 #'                    Sportferien, Fruehlingsferien, Sommerferien, Herbstferien, and Weihnachtsferien.
+#'                    You can also chose multiple values at once: holidaytype=c("Sommerferien", "Herbstferien").
 #'                    If you don't pass any value here, all types are included.
 #' @return An interactive bar plot for the dataset that was passed into the function.
 #'         Each bar represents the number of holidays in a year for a given region.
@@ -21,7 +22,7 @@
 #' @examples
 #' df <- data("holidays_2020_to_2025_long_major_regions")
 #' df <- get(df)
-#' holidays_bar_chart(data=df, holidaytype=c("Sommerferien", "Herbstferien"))
+#' holidays_bar_chart(data=df, normalize=TRUE, holidaytype=c("Sommerferien", "Herbstferien"))
 #'
 #'
 #'
@@ -212,7 +213,7 @@ holidays_bar_chart <- function(data, normalize=FALSE, holidaytype=c("Sportferien
 
 
 
-  #### Step 4 - Plot data ####
+  #### Step 5 - Plot data ####
   df.plot <- df.5
   n <- length(unique(df.plot$Primary.key)) # Needed that all Primary.keys are displayed
 

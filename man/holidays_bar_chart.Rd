@@ -25,6 +25,7 @@ Genferseeregion: 4). Normalizing the data can make the bar chart more meaningful
 
 \item{holidaytype}{The type of holidays you want the plot for. Possible values are:
 Sportferien, Fruehlingsferien, Sommerferien, Herbstferien, and Weihnachtsferien.
+You can also chose multiple values at once: holidaytype=c("Sommerferien", "Herbstferien").
 If you don't pass any value here, all types are included.}
 }
 \value{
@@ -37,7 +38,7 @@ Bar chart for holidays datasets
 \examples{
 df <- data("holidays_2020_to_2025_long_major_regions")
 df <- get(df)
-holidays_bar_chart(data=df, holidaytype=c("Sommerferien", "Herbstferien"))
+holidays_bar_chart(data=df, normalize=TRUE, holidaytype=c("Sommerferien", "Herbstferien"))
 
 
 

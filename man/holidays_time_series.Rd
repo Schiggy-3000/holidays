@@ -4,7 +4,12 @@
 \alias{holidays_time_series}
 \title{Time series for holidays datasets}
 \usage{
-holidays_time_series(data)
+holidays_time_series(
+  data,
+  normalize = FALSE,
+  holidaytype = c("Sportferien", "Fruehlingsferien", "Sommerferien", "Herbstferien",
+    "Weihnachtsferien")
+)
 }
 \arguments{
 \item{data}{A dataset from this package. This includes holidays_20XX_long,
@@ -12,6 +17,16 @@ holidays_20XX_long_major_regions, holidays_20XX_long_switzerland,
 holidays_2020_to_2025_long, holidays_2020_to_2025_long_major_regions
 and holidays_2020_to_2025_long_switzerland. Not that XX is a
 placeholder for 20, 21, 22, 23, 24 or 25.}
+
+\item{normalize}{Can be set to TRUE or FALSE. If set to TRUE, values for 'Ferientag'
+are normalized. This is useful for e.g. holidays_20XX_long_major_regions.
+Since not all major regions have the same number of members (e.g. Zentralschweiz: 9,
+Genferseeregion: 4). Normalizing the data can make the time series more meaningful.}
+
+\item{holidaytype}{The type of holidays you want the plot for. Possible values are:
+Sportferien, Fruehlingsferien, Sommerferien, Herbstferien, and Weihnachtsferien.
+You can also chose multiple values at once: holidaytype=c("Sommerferien", "Herbstferien").
+If you don't pass any value here, all types are included.}
 }
 \value{
 An interactive time series plot for the dataset that was passed into the function.
@@ -23,9 +38,9 @@ You can use the filter function at the top of the plot to display only the regio
 Time series for holidays datasets
 }
 \examples{
-df <- data("holidays_2020_long")
+df <- data("holidays_2020_to_2025_long")
 df <- get(df)
-holidays_time_series(data=df)
+holidays_time_series(data=df, normalize=TRUE, holidaytype=c("Sommerferien", "Herbstferien"))
 
 
 

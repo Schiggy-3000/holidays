@@ -11,6 +11,7 @@
 #'                  Genferseeregion: 4). Normalizing the data can make the heat map more meaningful.
 #' @param holidaytype The type of holidays you want the plot for. Possible values are:
 #'                    Sportferien, Fruehlingsferien, Sommerferien, Herbstferien, and Weihnachtsferien.
+#'                    You can also chose multiple values at once: holidaytype=c("Sommerferien", "Herbstferien").
 #'                    If you don't pass any value here, all types are included.
 #' @return An interactive heat map for the dataset that was passed into the function.
 #'         The y-axis represents regions ('Kanton', 'Grossregion', or 'Land') whereas
@@ -22,7 +23,7 @@
 #' @examples
 #' df <- data("holidays_2020_long")
 #' df <- get(df)
-#' holidays_heat_map(data=df)
+#' holidays_heat_map(data=df, normalize=TRUE, holidaytype=c("Sommerferien", "Herbstferien"))
 #'
 #'
 #'
