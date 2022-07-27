@@ -83,7 +83,7 @@ holidays_time_series <- function(data, normalize=FALSE, holidaytype=c("Sportferi
   } else {
 
     # User used an own or customized dataset as input
-    return(message("Own or customised datasets are not compatible with this function. Choose a dataset from this package. E.g. holidays_2020_long, holidays_2020_long_major_regions, or holidays_2020_long_switzerland. For more details, check the function documentation at ?holidays_bar_chart."))
+    return(message("Own or customised datasets are not compatible with this function. Choose a dataset from this package. E.g. holidays_2020_long, holidays_2020_long_major_regions, or holidays_2020_long_switzerland. For more details, check the function documentation at ?holidays_time_series."))
 
   }
 
