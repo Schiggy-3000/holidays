@@ -1,7 +1,8 @@
 #' Dataset - Swiss school holidays for ML (Scope: country)
 #'
-#' Dataset in long format containing school holidays (1.- 9. grade) from the
-#' years 2020 - 2025 aggregated to just one entity, Switzerland.
+#' Datasets in long format containing school holidays (1.- 9. grade) from the
+#' years 2020 - 2025 aggregated to just one entity, Switzerland. This data was
+#' scraped in July 2022.
 #'
 #' @format Data frames with region, temporal, and holiday variables.
 #' \describe{

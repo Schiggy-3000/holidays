@@ -38,6 +38,7 @@ holidays_2020_to_2025_long_major_regions
 }
 \description{
 A dataset in long format containing school holidays (1.- 9. grade) from the years
-2020 - 2025 aggregated to major region in Switzerland (e.g. Zentralschweiz, Ostschweiz)
+2020 - 2025 aggregated to major region in Switzerland (e.g. Zentralschweiz, Ostschweiz).
+This data was scraped in July 2022.
 }
 \keyword{datasets}

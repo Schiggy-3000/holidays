@@ -589,16 +589,37 @@ str(df.12)
 
 
 
+#### Step 11 ####
+
+# Remove 2019 as it is missing data at the start of the year.
+# This is because 'Winterferien' cross the year mark.
+# E.g. year 2018 includes 'Winterferien' that stretch out to
+# January 2019. 2019 itself does not include those holidays.
+df.13 <- df.12
+
+y <- c(2020, 2021, 2022, 2023, 2024, 2025)
+df.13 <- df.13[df.13$Jahr %in% y,]
+
+
+#### Check 11.X ####
+
+# Check if only years 2020 - 2025 are included
+years_included <- unique(df.13$Jahr)
+years_needed <- c(2020, 2021, 2022, 2023, 2024, 2025)
+check.10 <- years_included == years_needed
+
+
+
 #### Store dataset ####
 # Adds 'R' to Depends field in DESCRIPTION
 # Saving dataset to 'data/...rda'
-holidays_2020_long <- df.12[df.12$Jahr == 2020,]
-holidays_2021_long <- df.12[df.12$Jahr == 2021,]
-holidays_2022_long <- df.12[df.12$Jahr == 2022,]
-holidays_2023_long <- df.12[df.12$Jahr == 2023,]
-holidays_2024_long <- df.12[df.12$Jahr == 2024,]
-holidays_2025_long <- df.12[df.12$Jahr == 2025,]
-holidays_2020_to_2025_long <- df.12
+holidays_2020_long <- df.13[df.13$Jahr == 2020,]
+holidays_2021_long <- df.13[df.13$Jahr == 2021,]
+holidays_2022_long <- df.13[df.13$Jahr == 2022,]
+holidays_2023_long <- df.13[df.13$Jahr == 2023,]
+holidays_2024_long <- df.13[df.13$Jahr == 2024,]
+holidays_2025_long <- df.13[df.13$Jahr == 2025,]
+holidays_2020_to_2025_long <- df.13
 
 usethis::use_data(holidays_2020_long,
                   holidays_2021_long,

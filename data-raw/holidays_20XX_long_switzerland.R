@@ -83,8 +83,8 @@ check.2 <- nrow(df.2[is.na(df.2),]) == 0
 check.3 <- length(levels(as.factor(df.2$Land))) == 1
 
 # Check if the number of rows is correct
-# Every date from 2019-01-01 ... 2026-01-01 should come up exactly once
-start_date <- date("2019-01-01") # Convert to date
+# Every date from 2020-01-01 ... 2026-01-01 should come up exactly once
+start_date <- date("2020-01-01") # Convert to date
 end_date <- date("2026-01-01") # Convert to date
 days_total <- as.integer(difftime(end_date, start_date, units="days")) # Calculates the number of dates between dates
 check.4 <- nrow(df.2) == days_total
@@ -98,6 +98,7 @@ check.5 <- identical(wochenend_values_ist, wochenend_values_soll)
 # Visual check
 
 # Plot different Jahr/Monat combinations to check the data
+# Ignore the upcoming warning
 df.plot <- df.2[df.2$Jahr == 2020 & df.1$Monat == "01",]
 plot <- ggplot(df.plot, aes(x=Datum, y=Wochenende)) +
   geom_line() +

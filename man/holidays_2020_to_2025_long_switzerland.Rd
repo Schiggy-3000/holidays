@@ -40,6 +40,7 @@ holidays_2020_to_2025_long_switzerland
 }
 \description{
 A dataset in long format containing school holidays (1.- 9. grade) from the years
-2020 - 2025 aggregated to just one entity, Switzerland.
+2020 - 2025 aggregated to just one entity, Switzerland. This data was scraped
+in July 2022.
 }
 \keyword{datasets}

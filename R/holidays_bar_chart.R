@@ -226,7 +226,7 @@ holidays_bar_chart <- function(data, normalize=FALSE, holidaytype=c("Sportferien
       colors="RdYlGn",
       type="bar",
       hoverinfo = "text",
-      text=~paste("Datum:",
+      text=~paste("Jahr:",
                   df.plot$Jahr,
                   "<br>Ort:",
                   df.plot$Primary.key,

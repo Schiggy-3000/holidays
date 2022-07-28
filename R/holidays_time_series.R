@@ -17,7 +17,6 @@
 #' @return An interactive time series plot for the dataset that was passed into the function.
 #'         Each region (e.g. a 'Kanton', 'Grossregion' or 'Land') is represented by a plotted line.
 #'         The x-axis denotes dates whereas the number of holidays on a given date is shown on the y-axis.
-#'         You can use the filter function at the top of the plot to display only the regions of your choice.
 #' @import plotly RColorBrewer
 #' @importFrom rlang .data
 #' @importFrom grDevices colorRampPalette
