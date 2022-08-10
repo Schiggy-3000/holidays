@@ -18,6 +18,7 @@ library(devtools)
 library(dplyr)
 library(lubridate)
 library(tidyr)
+library(stringr)
 #install() # Note that you have to be in the /R directory of the package to install it
 #library(holidays)
 
