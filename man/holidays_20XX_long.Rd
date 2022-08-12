@@ -54,6 +54,7 @@ holidays_2025_long
 }
 \description{
 Datasets in long format containing school holidays (1.- 9. grade) from the
-years 2020 - 2025. This data was scraped in July 2022.
+years 2020 - 2025. This data was scraped in July 2022 from
+schulferien.org/schweiz/ferien/.
 }
 \keyword{datasets}

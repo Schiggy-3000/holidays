@@ -1,7 +1,8 @@
 #' Dataset - Swiss school holidays overview
 #'
 #' Datasets containing school holidays (1.- 9. grade) as date ranges from the
-#' years 2019 - 2025. This data was scraped in July 2022.
+#' years 2019 - 2025. This data was scraped in July 2022 from
+#' schulferien.org/schweiz/ferien/.
 #'
 #' @format Data frames with region and different types of holiday variables.
 #' \describe{
