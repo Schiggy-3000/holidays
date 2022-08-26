@@ -179,10 +179,14 @@ types <- c("Sommerferien", "Weihnachtsferien")
 holidays_heat_map(data=df, holidaytype=types, normalize=TRUE)
 ```
 
+<img src="man/figures/heat_map.png" width="85%" style="display: block; margin: auto;" />
+
 ``` r
 # Plot time series.
 holidays_time_series(data=df, holidaytype=types, normalize=TRUE)
 ```
+
+<img src="man/figures/time_series.png" width="85%" style="display: block; margin: auto;" />
 
 ``` r
 # Let's see which major region has the highest average of holidays during
@@ -198,6 +202,8 @@ types <- c("Sommerferien")
 holidays_bar_chart(data=df, holidaytype=types, normalize=TRUE)
 ```
 
+<img src="man/figures/bar_chart.png" width="85%" style="display: block; margin: auto;" />
+
 ``` r
 # Column description.
 # This function is similar to str() from the utils package.
@@ -207,3 +213,5 @@ holidays_bar_chart(data=df, holidaytype=types, normalize=TRUE)
 df <- get("holidays_2020_long")
 holidays_describe(df)
 ```
+
+<img src="man/figures/describe.png" width="85%" style="display: block; margin: auto;" />

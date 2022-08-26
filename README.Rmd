@@ -175,10 +175,21 @@ types <- c("Sommerferien", "Weihnachtsferien")
 # near the start of this vignette) than 'Genferseeregion'.
 holidays_heat_map(data=df, holidaytype=types, normalize=TRUE)
 ```
+```{r plot_1, echo=FALSE, eval=TRUE, out.width ="85%", fig.align="center"}
+# Display image
+# Readme.md can't render HTML output. This is why we display a simple image instead.
+knitr::include_graphics("man/figures/heat_map.png")
+```
+
 
 ```{r examine_datasets_2, eval=FALSE}
 # Plot time series.
 holidays_time_series(data=df, holidaytype=types, normalize=TRUE)
+```
+```{r plot_2, echo=FALSE, eval=TRUE, out.width ="85%", fig.align="center"}
+# Display image
+# Readme.md can't render HTML output. This is why we display a simple image instead.
+knitr::include_graphics("man/figures/time_series.png")
 ```
 
 ```{r examine_datasets_3, eval=FALSE}
@@ -194,6 +205,12 @@ types <- c("Sommerferien")
 # had only one reported day during summer vacation in 2025.
 holidays_bar_chart(data=df, holidaytype=types, normalize=TRUE)
 ```
+```{r plot_3, echo=FALSE, eval=TRUE, out.width ="85%", fig.align="center"}
+# Display image
+# Readme.md can't render HTML output. This is why we display a simple image instead.
+knitr::include_graphics("man/figures/bar_chart.png")
+```
+
 
 ```{r examine_datasets_4, eval=FALSE}
 # Column description.
@@ -203,4 +220,9 @@ holidays_bar_chart(data=df, holidaytype=types, normalize=TRUE)
 # regions, use this function.
 df <- get("holidays_2020_long")
 holidays_describe(df)
+```
+```{r plot_4, echo=FALSE, eval=TRUE, out.width ="85%", fig.align="center"}
+# Display image
+# Readme.md can't render HTML output. This is why we display a simple image instead.
+knitr::include_graphics("man/figures/describe.png")
 ```
